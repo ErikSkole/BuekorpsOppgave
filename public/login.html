@@ -8,14 +8,19 @@
 </head>
 <body>
     <div class="main">
-        <form action="/login" method="POST" class="loginForm">
-            <h2>Logg inn</h2>
-            <label for="username">Brukernavn:</label>
-            <input type="text" name="username">
-            <label for="password">Passord:</label>
-            <input type="password" name="password">
-            <input type="submit" value="Logg inn">
-        </form>
+        <div class="formBox">
+            <form action="/login" method="POST" class="loginForm">
+                <h2>Logg inn</h2>
+                <label for="username">Brukernavn:</label>
+                <input type="text" name="username">
+                <label for="password">Passord:</label>
+                <input type="password" name="password">
+                <input type="submit" value="Logg inn">
+            </form>
+            <div class="noUser">
+                <a href="/createUser">Har du ikke en bruker?</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

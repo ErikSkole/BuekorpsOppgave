@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #d0d0d0;
 }
 
 .main {
@@ -12,15 +13,27 @@ body {
     margin: 0;
 }
 
-.loginForm {
+.formBox {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10rem 0 0 0;
     padding: 2rem 5rem 3rem 5rem;
     width: 20rem;
+    background-color: rgb(232, 232, 232);
     border-radius: 25px;
     border: 1px solid black;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.noUser, .hasUser {
+    display: flex;
+    margin: 1rem 0 0 0;
 }
 
 label, input, select {

@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require("better-sqlite3")("database.db", { verbose: console.log })
 const session = require('express-session')
+const bcrypt = require('bcrypt')
 
 const app = express()
 
@@ -13,7 +14,11 @@ app.use(session( {
 }))
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html")
+    if (req.session.logedIn !== true) {
+        res.redirect("/login")
+    } else {
+        res.sendFile(__dirname + "/public/homePage.html")
+    }
 })
 
 app.get("/login", (req, res) => {
@@ -21,12 +26,28 @@ app.get("/login", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-    res.send("Login er ikke implementert enda")
+    const selectStmt = db.prepare("SELECT * FROM users WHERE username = ?")
+    const user = selectStmt.get(req.body.username)
+    if (user && bcrypt.compareSync(req.body.password, user.password_hash)) {
+        req.session.user = user
+        req.session.logedIn = true
+        res.redirect("/")
+    } else {
+        res.redirect("/login")
+    }
 })
 
 app.post("/createUser", (req, res) => {
+    const countStmt = db.prepare("SELECT COUNT(*) AS count FROM users")
+    const result = countStmt.get()
+    const userCount = result.count
     const insertStmt = db.prepare("INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)")
-    insertStmt.run(req.body.username, req.body.password, "Medlem")
+    const hash = bcrypt.hashSync(req.body.password, 10)
+    if (userCount === 0) {
+        insertStmt.run(req.body.username, hash, "Admin")
+    } else {
+        insertStmt.run(req.body.username, hash, "Medlem")
+    }
     res.send("User added")
 })
 
