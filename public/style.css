@@ -1,3 +1,87 @@
 body {
     background-color: #d0d0d0;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height: 2.5rem;
+    width: 98%;
+    background-color: rgb(36, 145, 247);
+    position: fixed;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(100, 180, 255);
+}
+
+.mainPicture {
+    display: flex;
+    justify-content: center;
+    height: 40rem;
+    background-image: url("./images/empty-modern-classroom-chairs-desks-260nw-1717498237.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.mainHeaderText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+}
+
+.mainInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 35rem;;
+}
+
+h1, h2 {
+    color: white;
+}
+
+.biggerInfoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 55rem;
+    background-color: grey;
+}
+
+.smallerInfoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40rem;
+    background-color: rgb(61, 61, 61);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(36, 145, 247);
+    height: 15rem;
+}
+
+.personalia {
+    display: flex;
+    flex-direction: column;
+    padding: 7rem 0 0rem 1rem;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding: 4rem 1rem 2rem 0;
 }
