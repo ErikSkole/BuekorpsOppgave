@@ -21,8 +21,6 @@ body {
     padding: 2rem 5rem 3rem 5rem;
     width: 20rem;
     background-color: rgb(232, 232, 232);
-    border-radius: 25px;
-    border: 1px solid black;
 }
 
 .loginForm {

@@ -7,22 +7,18 @@ const app = express()
 
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
-app.use(session( {
+app.use(session({
     secret: "keep it secret",
     resave: false,
     saveUninitialized: false
 }))
 
-app.get("/", (req, res) => {
-    if (req.session.logedIn !== true) {
-        res.redirect("/login")
-    } else {
-        res.sendFile(__dirname + "/public/homePage.html")
-    }
-})
-
 app.get("/login", (req, res) => {
     res.sendFile(__dirname + "/public/login.html")
+})
+
+app.get("/createUser", (req, res) => {
+    res.sendFile(__dirname + "/public/createUser.html")
 })
 
 app.post("/login", (req, res) => {
@@ -33,7 +29,7 @@ app.post("/login", (req, res) => {
         req.session.logedIn = true
         res.redirect("/")
     } else {
-        res.redirect("/login")
+        res.send("Wrong username or password")
     }
 })
 
@@ -51,9 +47,37 @@ app.post("/createUser", (req, res) => {
     res.send("User added")
 })
 
-app.get("/createUser", (req, res) => {
-    res.sendFile(__dirname + "/public/createUser.html")
+app.use((req, res, next) => {
+    if (req.session.logedIn === true) {
+        console.log("user logged in")
+        next()
+    } else {
+        res.redirect("/login")
+    }
 })
+
+app.get("/", (req, res) => {
+    if (req.session.user.role === "Admin") {
+        const isAdmin = true
+        res.sendFile(__dirname + "/public/admin.html")
+    } else {
+        res.sendFile(__dirname + "/public/homePage.html")
+    }
+})
+
+app.get("/admin", (req, res) => {
+    if (isAdmin === true) {
+        res.sendFile(__dirname + "/public/admin.html")
+    } else {
+        res.redirect("/")
+    }
+})
+
+app.get("/users", (req, res) => {
+    const selectStmt = db.prepare("SELECT * FROM users");
+    const users = selectStmt.all();
+    res.json(users);
+});
 
 app.listen(3000, () => {
     console.log('Server started at port 3000')

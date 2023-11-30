@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomePage</title>
+    <title>Home</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +14,37 @@
             <img src="./images/menu.svg" alt="menu">
         </div>
     </header>
-    <div class="main">
+    <main>
+        <div class="userList">
+            <div id="queryList"></div>
+        </div>
+        <script>
+            fetch('/users')
+            .then(response => response.json())
+            .then(users => {
+                const userList = document.getElementById('queryList');
+                const table = document.createElement('table');
+                const headerRow = document.createElement('tr');
+                ['Username', 'Role'].forEach(text => {
+                    const th = document.createElement('th');
+                    th.textContent = text;
+                    headerRow.appendChild(th);
+                });
+                table.appendChild(headerRow);
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    [user.username, user.role].forEach(text => {
+                        const td = document.createElement('td');
+                        td.textContent = text;
+                        row.appendChild(td);
+                    });
+                    table.appendChild(row);
+                });
+                userList.appendChild(table);
+            });
+        </script>
+    </main>
+    <!-- <div class="main">
         <div class="mainPicture">
             <div class="mainHeaderText">
                 <h1>Velkommen!</h1>
@@ -39,17 +69,17 @@
         </div>
         <div class="smallerInfoBox">
         </div>
-    </div>
-    <div class="footer">
+    </div> -->
+    <footer>
         <div class="personalia">
             <p>Erik Alexander Fauske Johansson</p>
-            <img src="#" alt="Picture of Erik">
+            <img src="#">
         </div>
         <div class="contactInfo">
             <p>tlf: +47 970 14 933</p>
             <p>mail: erik.fauske.johansson@gmail.com</p>
             <a href="#">Github</a>
         </div>
-    </div>
+    </footer>
 </body>
 </html>
