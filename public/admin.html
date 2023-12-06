@@ -19,6 +19,9 @@
         <div class="userList">
             <div id="queryList"></div>
         </div>
+        <div class="hidden">
+
+        </div>
         <script>
             fetch('/users')
             .then(response => response.json())
@@ -54,10 +57,8 @@
             });
 
             function openModal(user) {
-                // Code to open the modal and populate it with user properties
-                // You can access the user information using the 'user' object
-                // Example: user.username, user.role, etc.
-                // Add your code here
+                console.log("noe skjedde")
+                const hiddenDiv = document.getElementsByClassName("hidden")
             }
         </script>
     </main>
