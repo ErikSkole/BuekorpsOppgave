@@ -19,8 +19,20 @@
         <div class="userList">
             <div id="queryList"></div>
         </div>
-        <div class="hidden">
-
+        <div class="modal hidden">
+            <button class="modalButton" onclick="openModal()">Close</button>
+            <form class="modalForm" action="">
+                <label for="username">Brukernavn</label>
+                <input type="text" name="username" id="username">
+                <label for="password">Passord</label>
+                <input type="password" name="password" id="password">
+                <label for="role">Rolle</label>
+                <select name="role" id="role">
+                    <option value="admin">Admin</option>
+                    <option value="user">Bruker</option>
+                </select>
+                <input type="submit" value="Lagre">
+            </form>
         </div>
         <script>
             fetch('/users')
@@ -45,7 +57,6 @@
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
                     editButton.addEventListener('click', () => {
-                        // Open modal for editing user properties
                         openModal(user);
                     });
                     const td = document.createElement('td');
@@ -55,23 +66,22 @@
                 });
                 userList.appendChild(table);
             });
-
             function openModal(user) {
                 console.log("noe skjedde")
-                const hiddenDiv = document.getElementsByClassName("hidden")
+                document.querySelector('.modal').classList.toggle('hidden');
             }
         </script>
+        <div class="footer">
+            <div class="personalia">
+                <p>Erik Alexander Fauske Johansson</p>
+                <img src="#">
+            </div>
+            <div class="contactInfo">
+                <p>tlf: +47 970 14 933</p>
+                <p>mail: erik.fauske.johansson@gmail.com</p>
+                <a href="#">Github</a>
+            </div>
+        </div>
     </main>
-    <footer>
-        <div class="personalia">
-            <p>Erik Alexander Fauske Johansson</p>
-            <img src="#">
-        </div>
-        <div class="contactInfo">
-            <p>tlf: +47 970 14 933</p>
-            <p>mail: erik.fauske.johansson@gmail.com</p>
-            <a href="#">Github</a>
-        </div>
-    </footer>
 </body>
 </html>
