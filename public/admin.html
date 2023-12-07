@@ -19,7 +19,7 @@
         <div class="userList">
             <div id="queryList"></div>
         </div>
-        <div class="modal hidden">
+        <div class="modal hidden"> <!-- This is the modal for the edit function (default hidden) -->
             <button class="modalButton" onclick="openModal()">Close</button>
             <form class="modalForm" action="">
                 <label for="username">Brukernavn</label>
@@ -36,8 +36,8 @@
             </form>
         </div>
         <script>
-            fetch('/users')
-            .then(response => response.json())
+            fetch('/users') // Fetch all users from the database
+            .then(response => response.json()) // Convert the response to JSON
             .then(users => {
                 const userList = document.getElementById('queryList');
                 const table = document.createElement('table');
@@ -48,7 +48,7 @@
                     headerRow.appendChild(th);
                 });
                 table.appendChild(headerRow);
-                users.forEach(user => {
+                users.forEach(user => { // For each user in the database, create a table row with the username, role and an edit button
                     const row = document.createElement('tr');
                     [user.username, user.role].forEach(text => {
                         const td = document.createElement('td');
@@ -58,7 +58,7 @@
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
                     editButton.addEventListener('click', () => {
-                        openModal(user);
+                        openModal(user); // Calls function to open the edit modal form when the button is clicked
                     });
                     const td = document.createElement('td');
                     td.appendChild(editButton);
@@ -67,9 +67,8 @@
                 });
                 userList.appendChild(table);
             });
-            function openModal(user) {
-                console.log("noe skjedde")
-                document.querySelector('.modal').classList.toggle('hidden');
+            function openModal(user) { // Function to open the edit modal form
+                document.querySelector('.modal').classList.toggle('hidden'); // Toggles the hidden class on the modal to show or hide the modal
             }
         </script>
         <div class="footer">
