@@ -21,16 +21,16 @@
         </div>
         <div class="modal hidden"> <!-- This is the modal for the edit function (default hidden) -->
             <button class="modalButton" onclick="openModal()">Close</button>
-            <form class="modalForm" action="">
+            <form class="modalForm" action="/updateUser" method="POST">
                 <label for="username">Brukernavn</label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" value="">
                 <label for="password">Passord</label>
                 <input type="password" name="password" id="password">
                 <label for="role">Rolle</label>
                 <select name="role" id="role">
-                    <option value="admin">Admin</option>
-                    <option value="leader">Leder</option>
-                    <option value="user">Bruker</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Leder">Leder</option>
+                    <option value="Medlem">Medlem</option>
                 </select>
                 <input type="submit" value="Lagre">
             </form>
@@ -69,6 +69,7 @@
             });
             function openModal(user) { // Function to open the edit modal form
                 document.querySelector('.modal').classList.toggle('hidden'); // Toggles the hidden class on the modal to show or hide the modal
+                document.getElementById('username').value = user.username; // Sets the value of the username input field to the username of the user that was clicked
             }
         </script>
         <div class="footer">

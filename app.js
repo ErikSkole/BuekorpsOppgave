@@ -41,15 +41,15 @@ app.post("/createUser", (req, res) => {
     const userCount = result.count
     const insertStmt = db.prepare("INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)")
     const hash = bcrypt.hashSync(req.body.password, 10)
-    if (userCount === 0) {
+    if (userCount === 0) { // First user created becomes admin
         insertStmt.run(req.body.username, hash, "Admin")
-    } else {
+    } else { // All other users become members
         insertStmt.run(req.body.username, hash, "Medlem")
     }
     res.send("User added")
 })
 
-app.use((req, res, next) => {
+app.use((req, res, next) => { // Middleware to check if user is logged in
     if (req.session.logedIn === true) {
         console.log("user logged in")
         next()
@@ -79,6 +79,21 @@ app.get("/users", (req, res) => {
     const selectStmt = db.prepare("SELECT * FROM users");
     const users = selectStmt.all();
     res.json(users);
+});
+
+app.post("/updateUser", (req, res) => {
+    if (req.body.password === "") {
+        const updateStmt = db.prepare("UPDATE users SET role = ? WHERE username = ?")
+        updateStmt.run(req.body.role, req.body.username)
+        console.log("role updated")
+        res.redirect("/admin")
+    } else {
+        const updateStmt = db.prepare("UPDATE users SET role = ?, password_hash = ? WHERE username = ?")
+        const hash = bcrypt.hashSync(req.body.password, 10)
+        updateStmt.run(req.body.role, hash, req.body.username)
+        console.log("password and role updated")
+        res.redirect("/admin")
+    }
 });
 
 app.listen(3000, () => {
