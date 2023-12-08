@@ -68,7 +68,7 @@
                             const deleteButton = document.createElement('button');
                             deleteButton.textContent = 'Delete';
                             deleteButton.addEventListener('click', () => {
-                                deleteUser(user); // Calls function to delete user when the button is clicked
+                                deleteUser(user.id); // Calls function to delete user when the button is clicked
                             });
                             const tdEdit = document.createElement('td');
                             const tdDelete = document.createElement('td');
@@ -88,15 +88,12 @@
                     document.querySelector('.modal').classList.toggle('hidden'); // Toggles the hidden class on the modal to show or hide the modal
                     document.getElementById('username').value = user.username; // Sets the value of the username input field to the username of the user that was clicked
                 }
-                async function deleteUser(user) { // Function to delete user
+                async function deleteUser(id) { // Function to delete user
                     try {
-                        const response = await fetch('/deleteUser', { // Fetches the deleteUser route
+                        const response = await fetch('/deleteUser/' + id, { // Fetches the deleteUser route
                             method: 'DELETE', 
                         });
-                        const result = await response.json();
-                        if (result.success) { // If the user was deleted successfully, reload the page
-                            location.reload();
-                        }
+                        location.reload(); // Reloads the page to update the user list
                     } catch (error) {
                         console.error(error);
                     }
