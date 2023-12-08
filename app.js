@@ -96,11 +96,11 @@ app.post("/updateUser", (req, res) => {
     }
 });
 
-app.delete("/deleteUser", (req, res) => {
-    const deleteStmt = db.prepare("DELETE FROM users WHERE username = ?")
-    deleteStmt.run(req.body.username)
-    console.log("user deleted")
-    res.redirect("/admin")
+app.delete("/deleteUser/:id", (req, res) => {
+    let id = req.params.id
+    const deleteStmt = db.prepare("DELETE FROM users WHERE id = ?")
+    deleteStmt.run(id)
+    res.send("FANTASTISK")
 })
 
 app.listen(3000, () => {
