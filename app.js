@@ -96,6 +96,13 @@ app.post("/updateUser", (req, res) => {
     }
 });
 
+app.delete("/deleteUser", (req, res) => {
+    const deleteStmt = db.prepare("DELETE FROM users WHERE username = ?")
+    deleteStmt.run(req.body.username)
+    console.log("user deleted")
+    res.redirect("/admin")
+})
+
 app.listen(3000, () => {
     console.log('Server started at port 3000')
 })
