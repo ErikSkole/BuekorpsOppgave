@@ -4,7 +4,10 @@ CREATE TABLE users (
   password_hash TEXT NOT NULL,
   role TEXT NOT NULL,
   platoon_id INTEGER,
-  contact_info TEXT,
+  first_name TEXT,
+  last_name TEXT,
+  phone INTEGER,
+  email TEXT,
   FOREIGN KEY(platoon_id) REFERENCES platoons(id)
 );
 
