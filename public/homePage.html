@@ -9,9 +9,10 @@
 <body>
     <header>
         <div class="logo">
+            Medlem panel
         </div>
         <div class="menu">
-            <img src="./images/menu.svg" alt="menu">
+            <button class="logoutBtn">Logg ut</button>
         </div>
     </header>
     <main>
@@ -43,6 +44,9 @@
                     }
                 });
                 userList.appendChild(table); 
+            });
+            document.querySelector('.logoutBtn').addEventListener('click', () => { // Adds event listener to the logout button
+                window.location.href = '/logout'; // Redirects to the logout route
             });
         </script>
     </main>

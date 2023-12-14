@@ -16,17 +16,25 @@ app.use(session({
 }))
 
 app.get("/login", (req, res) => {
-    res.sendFile(__dirname + "/public/login.html")
+    if (req.session.logedIn !== true) {
+        res.sendFile(__dirname + "/public/login.html")
+    } else {
+        res.redirect("/")
+    }
+})
+
+app.get("/createUser", (req, res) => {
+    if (req.session.logedIn !== true) {
+        res.sendFile(__dirname + "/public/createUser.html")
+    } else {
+        res.redirect("/")
+    }
 })
 
 app.get("/logout", (req, res) => {
     req.session.destroy()
     console.log("user logged out")
     res.redirect("/")
-})
-
-app.get("/createUser", (req, res) => {
-    res.sendFile(__dirname + "/public/createUser.html")
 })
 
 app.post("/login", (req, res) => {
