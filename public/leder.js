@@ -17,30 +17,32 @@ async function fetchUsers() {
         });
         table.appendChild(headerRow);
         users.forEach(user => { // For each user in the database, create a table row with the username, role and an edit button
-            const row = document.createElement('tr');
-            [user.role, user.username, user.first_name, user.last_name, user.phone, user.email, user.platoons_company_id, user.platoons_platoon_id].forEach(text => {
-                const td = document.createElement('td');
-                td.textContent = text;
-                row.appendChild(td);
-            });
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Edit';
-            editButton.value = "modal";
-            editButton.addEventListener('click', () => {
-                openEditModal(user); // Calls function to open the edit modal form when the button is clicked
-            });
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.addEventListener('click', () => {
-                deleteUser(user.user_id); // Calls function to delete user when the button is clicked
-            });
-            const tdEdit = document.createElement('td');
-            const tdDelete = document.createElement('td');
-            tdEdit.appendChild(editButton);
-            tdDelete.appendChild(deleteButton);
-            row.appendChild(tdEdit);
-            row.appendChild(tdDelete);
-            table.appendChild(row);
+            if (user.role !== 'Admin') {
+                const row = document.createElement('tr');
+                [user.role, user.username, user.first_name, user.last_name, user.phone, user.email, user.platoons_company_id, user.platoons_platoon_id].forEach(text => {
+                    const td = document.createElement('td');
+                    td.textContent = text;
+                    row.appendChild(td);
+                });
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.value = "modal";
+                editButton.addEventListener('click', () => {
+                    openEditModal(user); // Calls function to open the edit modal form when the button is clicked
+                });
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', () => {
+                    deleteUser(user.user_id); // Calls function to delete user when the button is clicked
+                });
+                const tdEdit = document.createElement('td');
+                const tdDelete = document.createElement('td');
+                tdEdit.appendChild(editButton);
+                tdDelete.appendChild(deleteButton);
+                row.appendChild(tdEdit);
+                row.appendChild(tdDelete);
+                table.appendChild(row);
+            }
         });
         userList.appendChild(table);
     } catch (error) {

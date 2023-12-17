@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            Medlem panel
+        </div>
+        <div class="menu">
+            <button class="logoutBtn">Logg ut</button>
+        </div>
+    </header>
+    <main>
+        <div class="userList">
+            <div id="queryList"></div>
+        </div>
+        <div class="modal editModal hidden"> <!-- This is the modal for the edit function (default hidden) -->
+            <button class="modalButton" onclick="closeEditModal()">Close</button>
+            <form class="modalForm" action="/updateUserMedlem" method="POST">
+                <p class="currentUsernameHeader">Nåværende brukernavn</p>
+                <input type="text" name="currentUsername" class="currentUsername" readonly>
+                <label for="firstName">Fornavn:</label>
+                <input type="text" name="firstName">
+                <label for="lastName">Etternavn:</label>
+                <input type="text" name="lastName">
+                <label for="tlf">Tlf:</label>
+                <input type="number" name="tlf">
+                <label for="email">Email:</label>
+                <input type="email" name="email">
+                <label for="username">Brukernavn:</label>
+                <input type="text" name="username">
+                <label for="password">Passord:</label>
+                <input type="password" name="password">
+                <input type="submit" value="Lagre">
+            </form>
+        </div>
+        <script src="./medlem.js"></script>
+    </main>
+</body>
+</html>
